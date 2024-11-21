@@ -1,41 +1,11 @@
 import express from "express";
+import routes from "./src/routes/postsRoutes.js"
 
-const posts = [
-    {
-      id: 1,
-      descricao: "Um gato surfista radical pegando uma onda imaginária!",
-      imagem: "https://placecats.com/millie/300/150"
-    },
-    {
-      id: 2,
-      descricao: "Felix está pronto para estrelar um comercial de ração, com aquele sorriso irresistível!",
-      imagem: "https://placecats.com/millie/300/150"
-    },
-    {
-      id: 3,
-      descricao: "Whiskers compôs uma nova ópera e está prestes a estreá-la para a plateia de passarinhos!",
-      imagem: "https://placecats.com/millie/300/150"
-    }
-];
-
+// Cria uma instância do aplicativo Express.
 const app = express();
+routes(app);
 
-app.use(express.json());
+// Inicia o servidor na porta 3000 e exibe uma mensagem no console.
 app.listen(3000, () => {
     console.log("Servidor escutando.......");
-});
-
-app.get("/posts", (req, res) => {
-    res.status(200).json(posts);
-});
-
-function buscarPostPorID(id) {
-    return posts.findIndex((post) => {
-        return post.id === Number(id);
-    });
-}
-
-app.get("/posts/:id", (req, res) => {
-    const index = buscarPostPorID(req.params.id);
-    res.status(200).json(posts[index]);
 });
