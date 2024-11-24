@@ -5,7 +5,7 @@ import conectarAoBanco from "../config/dbconfig.js";
 const conexao = await conectarAoBanco(process.env.STRING_CONNECTION);
 
 
-export default async function getTodosPosts() {
+export async function getTodosPosts() {
     const db = conexao.db("imersao-backend");
     // Seleciona o banco de dados 'imersao-backend' da conexão estabelecida.
     const colecao = db.collection("posts");
@@ -13,3 +13,10 @@ export default async function getTodosPosts() {
     return colecao.find().toArray();
     // Executa uma consulta para encontrar todos os documentos da coleção 'posts' e retorna os resultados como um array.
 }
+
+export async function criarPost(novoPost) {
+    const db = conexao.db("imersao-backend");
+    const colecao = db.collection("posts");
+    return colecao.insertOne(novoPost);
+}
+
